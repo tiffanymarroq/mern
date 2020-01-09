@@ -2,7 +2,10 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import Input from '../../shared/components/FormElements/Input';
 import Button from '../../shared/components/FormElements/Button'
-
+import { 
+    VALIDATOR_REQUIRE,
+    VALIDATOR_MINLENGTH
+} from '../../utils/validators';
 
 const DUMMY_PLACES = [
     {
@@ -44,7 +47,10 @@ const UpdatePlace = ( ) => {
 
     return (
         <form>
-            <h2>Update place</h2> 
+            <Input
+                id='title'
+
+            />
         </form>
     )
 }
