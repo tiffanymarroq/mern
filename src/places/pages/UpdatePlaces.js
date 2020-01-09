@@ -2,10 +2,14 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import Input from '../../shared/components/FormElements/Input';
 import Button from '../../shared/components/FormElements/Button'
+
+
 import { 
     VALIDATOR_REQUIRE,
     VALIDATOR_MINLENGTH
-} from '../../utils/validators';
+} from '../../shared/utils/validators';
+
+import './PlaceForm.css';
 
 const DUMMY_PLACES = [
     {
@@ -35,6 +39,22 @@ const DUMMY_PLACES = [
   ];
 
 const UpdatePlace = ( ) => {
+    // const [ formState , dispatch ] = useReducer(
+    //     formReducer, {
+    //     inputs: {
+    //         title: {
+    //             value:'',   
+    //             isValid: false
+    //         },
+    //         description: {
+    //             value:'',
+    //             isValid: false
+    //         }
+    //     }, 
+    //     isValid: false,
+        
+    // });
+
     const placeId = useParams().placeId;
 
     const identifiedPlace = DUMMY_PLACES.find(p => p.id === placeId)
@@ -46,11 +66,32 @@ const UpdatePlace = ( ) => {
     }
 
     return (
-        <form>
+        <form className="place-form">
             <Input
                 id='title'
-
+                element="input"
+                type="text"
+                label="Title"
+                validators={[VALIDATOR_REQUIRE()]}
+                errorText="Enter valid title"
+                onInput= {() => {}}
+                value={identifiedPlace.title}
+                valid={true}
             />
+            <Input
+                id='title'
+                element="textarea"
+                type="text"
+                label="Title"
+                validators={[VALIDATOR_MINLENGTH(5)]}
+                errorText="Enter valid description"
+                onInput= {() => {}}
+                value={identifiedPlace.description}
+                valid={true}
+            />
+            <Button type='submit' disabled={true}>
+                Update place
+            </Button>
         </form>
     )
 }
