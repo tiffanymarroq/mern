@@ -3,7 +3,6 @@ import React, {
     useReducer
 } from 'react';
 
-
 const formReducer = (state, action) => {
     switch (action.type) {
         case 'INPUT_CHANGE':
@@ -18,22 +17,22 @@ const formReducer = (state, action) => {
             return {
                 ...state,
                 inputs: {
-                        ...state.inputs,
-                        [action.inputId]: {
-                            value: action.value,
-                            isValid: action.isValid
-                        }
-                    },
-                    isValid: formIsValid
-
+                    ...state.inputs,
+                    [action.inputId]: {
+                        value: action.value,
+                        isValid: action.isValid
+                    }
+                },
+                isValid: formIsValid
             }
-            case 'TOUCH':
-                return {
-                    ...state,
-                    isTouched: true,
-                }
-                default:
-                    return state;
+        case 'SET_DATA': 
+            return {
+                ...this.state,
+                inputs: action.inputs,
+                isValid: action.formIsValid
+            }
+        default :
+            return state
     }
 }
 
@@ -44,7 +43,6 @@ export const useForm = (initialInputs, initialFormValidity) => {
             inputs: initialInputs,
             isValid: initialFormValidity,
         });
-
 
     const inputHandler = useCallback((id, value, isValid) => {
         dispatch({
@@ -60,8 +58,8 @@ export const useForm = (initialInputs, initialFormValidity) => {
             type: 'SET_DATA',
             inputs: inputData,
             formIsValid: formValidity
-        })
+        }, [])
     })
 
-    return [formState, inputHandler];
+    return [formState, inputHandler, setFormData];
 }
